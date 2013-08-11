@@ -22,6 +22,8 @@ Group: Applications/Multimedia
 %package -n nemo-gstreamer0.10-interfaces-devel
 Summary: gstreamer interface used for video rendering devel package
 Group: Applications/Multimedia
+Requires:  nemo-gstreamer0.10-interfaces = %{version}-%{release}
+
 %description -n nemo-gstreamer0.10-interfaces-devel
 %{summary}
 %post -n nemo-gstreamer0.10-interfaces-devel -p /sbin/ldconfig
