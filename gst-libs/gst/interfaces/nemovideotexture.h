@@ -44,6 +44,16 @@ typedef void * EGLSyncKHR;
 
 typedef struct _NemoGstVideoTexture NemoGstVideoTexture;
 typedef struct _NemoGstVideoTextureClass NemoGstVideoTextureClass;
+typedef struct _NemoGstVideoTextureFrameInfo NemoGstVideoTextureFrameInfo;
+
+struct _NemoGstVideoTextureFrameInfo
+{
+  GstClockTime timestamp;
+  GstClockTime duration;
+  guint64 offset;
+  guint64 offset_end;
+  gpointer _gst_reserved[GST_PADDING];
+};
 
 struct _NemoGstVideoTextureClass
 {
@@ -54,6 +64,7 @@ struct _NemoGstVideoTextureClass
   gboolean (* bind_frame) (NemoGstVideoTexture *iface, EGLImageKHR *image);
   void (* unbind_frame) (NemoGstVideoTexture *iface);
   void (* release_frame) (NemoGstVideoTexture *iface, EGLSyncKHR sync);
+  gboolean (* get_frame_info) (NemoGstVideoTexture *iface, NemoGstVideoTextureFrameInfo *info);
 
   /*< private >*/
   gpointer                 _gst_reserved[GST_PADDING];
@@ -67,6 +78,7 @@ gboolean nemo_gst_video_texture_acquire_frame (NemoGstVideoTexture *iface);
 gboolean nemo_gst_video_texture_bind_frame (NemoGstVideoTexture *iface, EGLImageKHR *image);
 void     nemo_gst_video_texture_unbind_frame (NemoGstVideoTexture *iface);
 void     nemo_gst_video_texture_release_frame (NemoGstVideoTexture *iface, EGLSyncKHR sync);
+gboolean nemo_gst_video_texture_get_frame_info (NemoGstVideoTexture *iface, NemoGstVideoTextureFrameInfo *info);
 
 /* trigger signals */
 void     nemo_gst_video_texture_frame_ready (NemoGstVideoTexture *iface, gint frame);

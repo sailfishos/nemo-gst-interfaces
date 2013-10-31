@@ -225,6 +225,28 @@ nemo_gst_video_texture_release_frame (NemoGstVideoTexture * iface,
 }
 
 /**
+  * nemo_gst_video_texture_get_frame_info:
+  * @iface: #NemoGstVideoTexture of a GStreamer element
+  * @info: A pointer to #NemoGstVideoTextureFrameInfo
+  *
+  * Called by the application to get information about the
+  * currently acquired frame
+  *
+  * Returns: %TRUE on success and %FALSE on failure.
+  */
+gboolean
+nemo_gst_video_texture_get_frame_info (NemoGstVideoTexture *iface, NemoGstVideoTextureFrameInfo *info)
+{
+  NemoGstVideoTextureClass *klass = NEMO_GST_VIDEO_TEXTURE_GET_CLASS (iface);
+
+  if (klass->get_frame_info) {
+    return klass->get_frame_info (iface, info);
+  }
+
+  return FALSE;
+}
+
+/**
  * nemo_gst_video_texture_frame_ready:
  * @iface: #NemoGstVideoTexture of a GStreamer element
  * @frame: frame number
