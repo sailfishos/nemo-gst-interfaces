@@ -1,11 +1,11 @@
 dnl required version of autoconf
 AC_PREREQ([2.53])
 
-AC_INIT([nemo-gst-interfaces],[0.10.0])
+AC_INIT([nemo-gst-interfaces],[1.0.0])
 
 dnl required versions of gstreamer and plugins-base
-GST_REQUIRED=0.10.16
-GSTPB_REQUIRED=0.10.16
+GST_REQUIRED=1.0
+GSTPB_REQUIRED=1.0
 
 AC_CONFIG_SRCDIR([gst-libs/Makefile.am])
 AC_CONFIG_HEADERS([config.h])
@@ -31,18 +31,15 @@ AC_CHECK_PROG(HAVE_PKGCONFIG, pkg-config, [ ], [
 dnl Check for the required version of GStreamer core (and gst-plugins-base)
 dnl This will export GST_CFLAGS and GST_LIBS variables for use in Makefile.am
 PKG_CHECK_MODULES(GST, [
-  gstreamer-0.10 >= $GST_REQUIRED
-  gstreamer-base-0.10 >= $GST_REQUIRED
+  gstreamer-1.0 >= $GST_REQUIRED
+  gstreamer-base-1.0 >= $GST_REQUIRED
 ], [
   AC_SUBST(GST_CFLAGS)
   AC_SUBST(GST_LIBS)
 ], [
   AC_MSG_ERROR([
       You need to install or upgrade the GStreamer development
-      packages on your system. On debian-based systems these are
-      libgstreamer0.10-dev and libgstreamer-plugins-base0.10-dev.
-      on RPM-based systems gstreamer0.10-devel, libgstreamer0.10-devel
-      or similar. The minimum version required is $GST_REQUIRED.
+      packages on your system.
   ])
 ])
 
@@ -57,7 +54,7 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([ ], [ ])], [
   AC_MSG_RESULT([no])
 ])
 
-GST_MAJORMINOR=0.10
+GST_MAJORMINOR=1.0
 AC_SUBST(GST_MAJORMINOR)
 
 AC_CONFIG_FILES([Makefile

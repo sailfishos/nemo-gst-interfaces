@@ -64,8 +64,6 @@ nemo_gst_video_texture_get_type (void)
 
     nemo_gst_video_texture_type = g_type_register_static (G_TYPE_INTERFACE,
         "NemoGstVideoTexture", &nemo_gst_video_texture_info, 0);
-    g_type_interface_add_prerequisite (nemo_gst_video_texture_type,
-        GST_TYPE_IMPLEMENTS_INTERFACE);
   }
 
   return nemo_gst_video_texture_type;
