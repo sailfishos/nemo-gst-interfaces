@@ -247,6 +247,30 @@ nemo_gst_video_texture_get_frame_info (NemoGstVideoTexture *iface, NemoGstVideoT
 }
 
 /**
+  * nemo_gst_video_texture_get_frame_qdata:
+  * @iface: #NemoGstVideoTexture of a GStreamer element
+  * @quark: name quark of data structure to find
+  *
+  * Called by the application to get metadata structure from the currently
+  * acquired frame.
+  * The GstStructure is guaranteed to be available until the application
+  * releases the frame.
+  *
+  * Returns: a GstStructure, or NULL if not found.
+  */
+const GstStructure *
+nemo_gst_video_texture_get_frame_qdata (NemoGstVideoTexture *iface, const GQuark quark)
+{
+  NemoGstVideoTextureClass *klass = NEMO_GST_VIDEO_TEXTURE_GET_CLASS (iface);
+
+  if (klass->get_frame_qdata) {
+    return klass->get_frame_qdata (iface, quark);
+  }
+
+  return NULL;
+}
+
+/**
  * nemo_gst_video_texture_frame_ready:
  * @iface: #NemoGstVideoTexture of a GStreamer element
  * @frame: frame number

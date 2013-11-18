@@ -65,6 +65,7 @@ struct _NemoGstVideoTextureClass
   void (* unbind_frame) (NemoGstVideoTexture *iface);
   void (* release_frame) (NemoGstVideoTexture *iface, EGLSyncKHR sync);
   gboolean (* get_frame_info) (NemoGstVideoTexture *iface, NemoGstVideoTextureFrameInfo *info);
+  const GstStructure *(* get_frame_qdata)(NemoGstVideoTexture *iface, const GQuark quark);
 
   /*< private >*/
   gpointer                 _gst_reserved[GST_PADDING];
@@ -79,6 +80,7 @@ gboolean nemo_gst_video_texture_bind_frame (NemoGstVideoTexture *iface, EGLImage
 void     nemo_gst_video_texture_unbind_frame (NemoGstVideoTexture *iface);
 void     nemo_gst_video_texture_release_frame (NemoGstVideoTexture *iface, EGLSyncKHR sync);
 gboolean nemo_gst_video_texture_get_frame_info (NemoGstVideoTexture *iface, NemoGstVideoTextureFrameInfo *info);
+const GstStructure *nemo_gst_video_texture_get_frame_qdata (NemoGstVideoTexture *iface, const GQuark quark);
 
 /* trigger signals */
 void     nemo_gst_video_texture_frame_ready (NemoGstVideoTexture *iface, gint frame);
