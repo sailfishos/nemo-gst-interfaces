@@ -269,6 +269,28 @@ nemo_gst_video_texture_get_frame_qdata (NemoGstVideoTexture *iface, const GQuark
 }
 
 /**
+  * nemo_gst_video_texture_get_frame_meta:
+  * @iface: #NemoGstVideoTexture of a GStreamer element
+  * @info: the GType of an API
+  *
+  * Called by the application to get metadata for api on buffer.
+  * There must be a currently acquired frame
+  *
+  * Returns: the matadate for API on buffer or NULL
+  */
+GstMeta *
+nemo_gst_video_texture_get_frame_meta (NemoGstVideoTexture *iface, GType api)
+{
+  NemoGstVideoTextureClass *klass = NEMO_GST_VIDEO_TEXTURE_GET_CLASS (iface);
+
+  if (klass->get_frame_meta) {
+    return klass->get_frame_meta (iface, api);
+  }
+
+  return NULL;
+}
+
+/**
  * nemo_gst_video_texture_frame_ready:
  * @iface: #NemoGstVideoTexture of a GStreamer element
  * @frame: frame number
