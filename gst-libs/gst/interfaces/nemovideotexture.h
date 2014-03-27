@@ -48,8 +48,9 @@ typedef struct _NemoGstVideoTextureFrameInfo NemoGstVideoTextureFrameInfo;
 
 struct _NemoGstVideoTextureFrameInfo
 {
-  GstClockTime timestamp;
   GstClockTime duration;
+  GstClockTime pts;
+  GstClockTime dts;
   guint64 offset;
   guint64 offset_end;
   gpointer _gst_reserved[GST_PADDING];
