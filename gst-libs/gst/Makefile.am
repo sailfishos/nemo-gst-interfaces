@@ -1,1 +1,1 @@
-SUBDIRS = interfaces
+SUBDIRS = interfaces meta

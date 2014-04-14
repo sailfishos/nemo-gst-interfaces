@@ -1,0 +1,11 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@/gstreamer-@GST_MAJORMINOR@
+
+Name: Nemomobile GStreamer buffer meta
+Description: GStreamer buffer meta for Nemomobile
+Requires: gstreamer-video-@GST_MAJORMINOR@
+Version: @VERSION@
+Libs: -L${libdir} -lgstnemometa-@GST_MAJORMINOR@
+Cflags: -I${includedir}

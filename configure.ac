@@ -33,6 +33,7 @@ dnl This will export GST_CFLAGS and GST_LIBS variables for use in Makefile.am
 PKG_CHECK_MODULES(GST, [
   gstreamer-1.0 >= $GST_REQUIRED
   gstreamer-base-1.0 >= $GST_REQUIRED
+  gstreamer-video-1.0 >= $GST_REQUIRED
 ], [
   AC_SUBST(GST_CFLAGS)
   AC_SUBST(GST_LIBS)
@@ -59,8 +60,10 @@ AC_SUBST(GST_MAJORMINOR)
 
 AC_CONFIG_FILES([Makefile
 		nemo-gstreamer-interfaces-$GST_MAJORMINOR.pc
+		nemo-gstreamer-meta-$GST_MAJORMINOR.pc
 		gst-libs/Makefile
 		gst-libs/gst/Makefile
 		gst-libs/gst/interfaces/Makefile
+		gst-libs/gst/meta/Makefile
 		])
 AC_OUTPUT
