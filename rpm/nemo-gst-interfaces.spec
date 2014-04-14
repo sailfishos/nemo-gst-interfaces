@@ -43,9 +43,12 @@ make %{?jobs:-j%jobs}
 %files -n nemo-gstreamer1.0-interfaces
 %defattr(-,root,root,-)
 %{_libdir}/libgstnemointerfaces-1.0.so.*
+%{_libdir}/libgstnemometa-1.0.so.*
 
 %files -n nemo-gstreamer1.0-interfaces-devel
 %defattr(-,root,root,-)
 %{_libdir}/libgstnemointerfaces-1.0.so
-%{_libdir}/pkgconfig/nemo-gstreamer-interfaces-1.0.pc
+%{_libdir}/libgstnemometa-1.0.so
+%{_libdir}/pkgconfig/*-1.0.pc
 %{_includedir}/gstreamer-1.0/gst/interfaces/nemovideotexture.h
+%{_includedir}/gstreamer-1.0/gst/meta/nemometa.h
