@@ -56,13 +56,13 @@ nemo_gst_buffer_orientation_meta_get_info (void)
 
 NemoGstBufferOrientationMeta *
 gst_buffer_add_gst_buffer_orientation_meta (GstBuffer * buffer,
-    NemoGstBufferOrientation orientation, gint device_id)
+    NemoGstBufferOrientation orientation, NemoGstDeviceDirection direction)
 {
   NemoGstBufferOrientationMeta *meta = (NemoGstBufferOrientationMeta *)
     gst_buffer_add_meta (buffer, NEMO_GST_BUFFER_ORIENTATION_META_INFO, NULL);
 
   meta->orientation = orientation;
-  meta->device_id = device_id;
+  meta->direction = direction;
 
   return meta;
 }

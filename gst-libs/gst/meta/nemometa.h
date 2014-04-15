@@ -36,11 +36,17 @@ typedef enum
   NEMO_GST_META_BUFFER_ORIENTATION_270,
 } NemoGstBufferOrientation;
 
+typedef enum
+{
+  NEMO_GST_META_DEVICE_DIRECTION_BACK = 0,
+  NEMO_GST_META_DEVICE_DIRECTION_FRONT,
+} NemoGstDeviceDirection;
+
 struct _NemoGstBufferOrientationMeta {
   GstMeta       meta;
 
   NemoGstBufferOrientation orientation;
-  gint                     device_id;
+  NemoGstDeviceDirection direction;
 };
 
 GType nemo_gst_buffer_orientation_meta_api_get_type (void);
@@ -52,7 +58,7 @@ const GstMetaInfo * nemo_gst_buffer_orientation_meta_get_info (void);
 NemoGstBufferOrientationMeta *
 gst_buffer_add_gst_buffer_orientation_meta (GstBuffer * buffer,
 					    NemoGstBufferOrientation orientation,
-					    gint device_id);
+					    NemoGstDeviceDirection direction);
 
 G_END_DECLS
 
