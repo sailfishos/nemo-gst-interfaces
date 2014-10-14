@@ -109,17 +109,7 @@ nemo_gst_video_texture_iface_base_init (NemoGstVideoTextureClass * klass)
 static void
 nemo_gst_video_texture_iface_class_init (NemoGstVideoTextureClass * klass)
 {
-  /**
-   * NemoGstVideoTextureClass::egl-display
-   * EGL Display
-   * Application must provide a valid EGL display to the sink before attempting
-   * to call nemo_gst_video_texture_acquire_frame()
-   */
-  g_object_interface_install_property (klass,
-      g_param_spec_pointer ("egl-display",
-          "EGL display ",
-          "The application provided EGL display to be used for creating EGLImageKHR objects.",
-          G_PARAM_READWRITE));
+  /* Nothing */
 }
 
 /**
@@ -285,4 +275,41 @@ nemo_gst_video_texture_frame_ready (NemoGstVideoTexture * iface, gint frame)
 
   g_signal_emit (G_OBJECT (iface),
       nemo_gst_video_texture_iface_signals[SIGNAL_FRAME_READY], 0, frame);
+}
+
+/**
+ * nemo_gst_video_texture_attach_to_display:
+ * @iface: #NemoGstVideoTexture of a GStreamer element
+ * @dpy: The EGL display to be used by the sink
+ *
+ * Must be called by the application before trying to acquire any frames in order
+ * to inform the sink about the EGL display being used.
+ * The display must remain valid until nemo_gst_video_texture_detach_from_display() gets called
+ */
+void
+nemo_gst_video_texture_attach_to_display (NemoGstVideoTexture * iface, EGLDisplay dpy)
+{
+  NemoGstVideoTextureClass *klass = NEMO_GST_VIDEO_TEXTURE_GET_CLASS (iface);
+
+  if (klass->attach_to_display) {
+    klass->attach_to_display (iface, dpy);
+  }
+}
+
+/**
+ * nemo_gst_video_texture_detach_from_display:
+ * @iface: #NemoGstVideoTexture of a GStreamer element
+ *
+ * Must be called by the application after all the frames have been rendered. Ideally in
+ * response to a frame-ready signal with a negative argument.
+ * Application guarantees calling this from its rendering thread.
+ */
+void
+nemo_gst_video_texture_detach_from_display (NemoGstVideoTexture * iface)
+{
+  NemoGstVideoTextureClass *klass = NEMO_GST_VIDEO_TEXTURE_GET_CLASS (iface);
+
+  if (klass->detach_from_display) {
+    klass->detach_from_display (iface);
+  }
 }

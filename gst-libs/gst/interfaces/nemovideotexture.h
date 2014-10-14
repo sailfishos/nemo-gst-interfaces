@@ -41,6 +41,7 @@ G_BEGIN_DECLS
 
 typedef void * EGLImageKHR;
 typedef void * EGLSyncKHR;
+typedef void * EGLDisplay;
 
 typedef struct _NemoGstVideoTexture NemoGstVideoTexture;
 typedef struct _NemoGstVideoTextureClass NemoGstVideoTextureClass;
@@ -66,6 +67,8 @@ struct _NemoGstVideoTextureClass
   void (* release_frame) (NemoGstVideoTexture *iface, EGLSyncKHR sync);
   gboolean (* get_frame_info) (NemoGstVideoTexture *iface, NemoGstVideoTextureFrameInfo *info);
   const GstStructure *(* get_frame_qdata)(NemoGstVideoTexture *iface, const GQuark quark);
+  void (* attach_to_display) (NemoGstVideoTexture *iface, EGLDisplay dpy);
+  void (* detach_from_display) (NemoGstVideoTexture *iface);
 
   /*< private >*/
   gpointer                 _gst_reserved[GST_PADDING];
@@ -81,6 +84,8 @@ void     nemo_gst_video_texture_unbind_frame (NemoGstVideoTexture *iface);
 void     nemo_gst_video_texture_release_frame (NemoGstVideoTexture *iface, EGLSyncKHR sync);
 gboolean nemo_gst_video_texture_get_frame_info (NemoGstVideoTexture *iface, NemoGstVideoTextureFrameInfo *info);
 const GstStructure *nemo_gst_video_texture_get_frame_qdata (NemoGstVideoTexture *iface, const GQuark quark);
+void    nemo_gst_video_texture_attach_to_display(NemoGstVideoTexture *iface, EGLDisplay dpy);
+void    nemo_gst_video_texture_detach_from_display(NemoGstVideoTexture *iface);
 
 /* trigger signals */
 void     nemo_gst_video_texture_frame_ready (NemoGstVideoTexture *iface, gint frame);
