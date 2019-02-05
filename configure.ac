@@ -1,7 +1,7 @@
 dnl required version of autoconf
 AC_PREREQ([2.53])
 
-AC_INIT([nemo-gst-interfaces],[1.0.0])
+AC_INIT
 
 dnl required versions of gstreamer and plugins-base
 GST_REQUIRED=1.0
@@ -10,8 +10,7 @@ GSTPB_REQUIRED=1.0
 AC_CONFIG_SRCDIR([gst-libs/Makefile.am])
 AC_CONFIG_HEADERS([config.h])
 
-dnl required version of automake
-AM_INIT_AUTOMAKE([1.10])
+AM_INIT_AUTOMAKE([nemo-gst-interfaces], [$VERSION])
 
 dnl enable mainainer mode by default
 AM_MAINTAINER_MODE([enable])

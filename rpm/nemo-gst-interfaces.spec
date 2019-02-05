@@ -34,7 +34,7 @@ Requires:  nemo-gstreamer1.0-interfaces = %{version}-%{release}
 
 %build
 %autogen
-%configure
+%configure VERSION="`echo %{version} | sed 's/+.*//'`"
 make %{?jobs:-j%jobs}
 
 %install
