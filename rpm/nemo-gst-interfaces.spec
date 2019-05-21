@@ -3,8 +3,8 @@ Summary:        Nemo mobile GStreamer interfaces
 Version:        1.0.0
 Release:        1
 Group:          Applications/Multimedia
-License:        LGPL2.1+
-URL:            http://jollamobile.com
+License:        LGPLv2+
+URL:            https://git.sailfishos.org/mer-core/nemo-gst-interfaces
 Source0:        %{name}-%{version}.tar.gz
 BuildRequires:  pkgconfig(gstreamer-plugins-base-1.0)
 
