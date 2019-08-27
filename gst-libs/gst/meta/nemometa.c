@@ -19,6 +19,10 @@
 #include "nemometa.h"
 #include <gst/video/video.h>
 
+static gboolean
+nemo_gst_buffer_orientation_meta_transform (GstBuffer * dest, GstMeta * meta,
+    GstBuffer * buffer, GQuark type, gpointer data);
+
 GType
 nemo_gst_buffer_orientation_meta_api_get_type (void)
 {
@@ -46,7 +50,7 @@ nemo_gst_buffer_orientation_meta_get_info (void)
 			 sizeof (NemoGstBufferOrientationMeta),
 			 (GstMetaInitFunction) NULL,
 			 (GstMetaFreeFunction) NULL,
-			 (GstMetaTransformFunction)NULL);
+			 nemo_gst_buffer_orientation_meta_transform);
 
     g_once_init_leave (&meta_info, meta);
   }
@@ -65,4 +69,19 @@ gst_buffer_add_gst_buffer_orientation_meta (GstBuffer * buffer,
   meta->direction = direction;
 
   return meta;
+}
+
+static gboolean
+nemo_gst_buffer_orientation_meta_transform (GstBuffer * dest, GstMeta * meta,
+    GstBuffer * buffer, GQuark type, gpointer data)
+{
+  NemoGstBufferOrientationMeta *smeta = (NemoGstBufferOrientationMeta *) meta;
+
+  // This meta is about how the buffer is created. So, `type` doesn't matter.
+  if (!gst_buffer_add_gst_buffer_orientation_meta (dest, smeta->orientation,
+          smeta->direction)) {
+    return FALSE;
+  }
+
+  return TRUE;
 }
