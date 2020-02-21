@@ -23,6 +23,12 @@ static gboolean
 nemo_gst_buffer_orientation_meta_transform (GstBuffer * dest, GstMeta * meta,
     GstBuffer * buffer, GQuark type, gpointer data);
 
+static gboolean
+nemo_gst_buffer_orientation_meta_init (GstMeta *meta, gpointer params, GstBuffer *buffer)
+{
+  return TRUE;
+}
+
 GType
 nemo_gst_buffer_orientation_meta_api_get_type (void)
 {
@@ -48,7 +54,7 @@ nemo_gst_buffer_orientation_meta_get_info (void)
     const GstMetaInfo *meta =
       gst_meta_register (NEMO_GST_BUFFER_ORIENTATION_META_API_TYPE, "NemoGstBufferOrientationMeta",
 			 sizeof (NemoGstBufferOrientationMeta),
-			 (GstMetaInitFunction) NULL,
+			 nemo_gst_buffer_orientation_meta_init,
 			 (GstMetaFreeFunction) NULL,
 			 nemo_gst_buffer_orientation_meta_transform);
 
