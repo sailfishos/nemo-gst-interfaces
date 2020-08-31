@@ -34,11 +34,12 @@ Requires:  nemo-gstreamer1.0-interfaces = %{version}-%{release}
 
 %build
 %autogen
-%configure VERSION="`echo %{version} | sed 's/+.*//'`"
+%configure VERSION="`echo %{version} | sed 's/+.*//'`" --disable-static
 make %{?jobs:-j%jobs}
 
 %install
 %make_install
+rm -f %{buildroot}/%{_libdir}/*.la
 
 %files -n nemo-gstreamer1.0-interfaces
 %defattr(-,root,root,-)
