@@ -2,9 +2,8 @@ Name:           nemo-gst-interfaces
 Summary:        Nemo mobile GStreamer interfaces
 Version:        1.0.0
 Release:        1
-Group:          Applications/Multimedia
 License:        LGPLv2+
-URL:            https://git.sailfishos.org/mer-core/nemo-gst-interfaces
+URL:            https://github.com/sailfishos/nemo-gst-interfaces/
 Source0:        %{name}-%{version}.tar.gz
 BuildRequires:  pkgconfig(gstreamer-plugins-base-1.0)
 
@@ -13,19 +12,20 @@ Nemo mobile GStreamer interfaces
 
 %package -n nemo-gstreamer1.0-interfaces
 Summary: gstreamer interface used for video rendering
-Group: Applications/Multimedia
+
 %description -n nemo-gstreamer1.0-interfaces
 %{summary}
+
 %post -n nemo-gstreamer1.0-interfaces -p /sbin/ldconfig
 %postun -n nemo-gstreamer1.0-interfaces -p /sbin/ldconfig
 
 %package -n nemo-gstreamer1.0-interfaces-devel
 Summary: gstreamer interface used for video rendering devel package
-Group: Applications/Multimedia
 Requires:  nemo-gstreamer1.0-interfaces = %{version}-%{release}
 
 %description -n nemo-gstreamer1.0-interfaces-devel
 %{summary}
+
 %post -n nemo-gstreamer1.0-interfaces-devel -p /sbin/ldconfig
 %postun -n nemo-gstreamer1.0-interfaces-devel -p /sbin/ldconfig
 
@@ -35,7 +35,7 @@ Requires:  nemo-gstreamer1.0-interfaces = %{version}-%{release}
 %build
 %autogen
 %configure VERSION="`echo %{version} | sed 's/+.*//'`" --disable-static
-make %{?jobs:-j%jobs}
+%make_build
 
 %install
 %make_install
@@ -43,6 +43,7 @@ rm -f %{buildroot}/%{_libdir}/*.la
 
 %files -n nemo-gstreamer1.0-interfaces
 %defattr(-,root,root,-)
+%license COPYING
 %{_libdir}/libgstnemointerfaces-1.0.so.*
 %{_libdir}/libgstnemometa-1.0.so.*
 
